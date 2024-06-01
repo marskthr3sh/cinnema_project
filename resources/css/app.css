@@ -1,0 +1,4 @@
+.phim-item {
+    display: inline;
+    margin-right: 10px; /* Để tạo khoảng cách giữa các phần tử */
+}
