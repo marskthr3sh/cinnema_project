@@ -26,12 +26,16 @@ class CustomerController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-
+            // unique:users: duy nhất trong bảng user
         ]);
+
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        // tạo một đối tượng mới, gán name, email khi yêu cầu
         $user->password = Hash::make($request->password);
+        // Hash::make: băm mật khẩu
+
         $user->save();
 
         return redirect('/login')->with('success', 'Registration successful. Please login.');
@@ -69,6 +73,7 @@ class CustomerController extends Controller
         }
 
         return view('client.page.profile.profile', ['data' => $data]);
+        // Nếu yêu cầu không phải là AJAX, trả về view chính
     }
 
     public function postProfile(Request $request)

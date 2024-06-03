@@ -48,14 +48,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', [TrangChuController::class, 'timKiem'])->name('search');
 });
 
-
-
-// Route::get('/admin/login' , [AdminController::class , 'viewLogin'])->name('login');
-// Route::get('/admin/login' , [AdminController::class , 'postLogin'])->name('login'); jm
-
-// Route::middleware(['auth', 'admin'])->group(function () {
-//     Route::get('/admin/login', [AdminController::class, 'viewLogin'])->name('admin.login');
-// });
 Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login.post');
 Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
@@ -72,6 +64,23 @@ Route::group(['middleware'=> 'admin'],function () {
             Route::get('/edit/{id}', [PhimController::class, 'edit'])->name('edit');
             Route::put('/{id}', [PhimController::class, 'update'])->name('update');
         });
+        // thong-ke
+        Route::group(['prefix' => '/thong-ke'], function () {
+            Route::get('/', [AdminController::class, 'thongKe']);
+            Route::post('/', [AdminController::class, 'thongKe'])->name('thongKe');
+            Route::post('/', [AdminController::class, 'ajaxthongKe'])->name('ajaxthongKe');
+        });
+        // Quản lý dịch vụ
+        Route::group(['prefix'  =>  '/service'], function () {
+            Route::get('/', [AdminController::class, 'service'])->name('service');
+            Route::post('/postService', [AdminController::class, 'postService'])->name('postService');
+            Route::delete('/delete/{id}', [AdminController::class, 'delService'])->name('delete');
+            Route::get('/edit/{id}', [AdminController::class, 'editService'])->name('edit');
+            Route::put('/{id}', [AdminController::class, 'updateService'])->name('update');
+            Route::post('/status{id}', [AdminController::class, 'statusService'])->name('status');
+        });
+
+        /////////////////////////////////////////////////////////
         Route::group(['prefix'  =>  '/phong-chieu'], function () {
             Route::get('/', [PhongChieuController::class, 'index']);
             Route::get('/vue', [PhongChieuController::class, 'indexVue']);
@@ -89,34 +98,20 @@ Route::group(['middleware'=> 'admin'],function () {
         Route::group(['prefix'  =>  '/don-vi'], function () {
             Route::get('/', [DonViController::class, 'index']);
         });
-        Route::group(['prefix'  =>  '/lich-chieu'], function () {
-            Route::get('/', [LichChieuController::class, 'index']);
-        });
+
         Route::group(['prefix'  =>  '/slide'], function () {
             Route::get('/', [SlideController::class, 'index']);
             Route::get('/vue', [SlideController::class, 'indexVue']);
         });
-        Route::group(['prefix'  =>  '/sinh-vien'], function () {
-            Route::get('/', [SinhVienController::class, 'index']);
-        });
+        // Route::group(['prefix'  =>  '/lich-chieu'], function () {
+        //     Route::get('/', [LichChieuController::class, 'index']);
+        // });
+        // Route::group(['prefix'  =>  '/sinh-vien'], function () {
+        //     Route::get('/', [SinhVienController::class, 'index']);
+        // });
 
-        Route::group(['prefix'  =>  '/lich-kham'], function () {
-            Route::get('/', [LichKhamController::class, 'index']);
-        });
-
-        Route::group(['prefix' => '/thong-ke'], function () {
-            Route::get('/', [AdminController::class, 'thongKe']);
-            Route::post('/', [AdminController::class, 'thongKe'])->name('thongKe');
-            Route::post('/', [AdminController::class, 'ajaxthongKe'])->name('ajaxthongKe');
-        });
-        Route::group(['prefix'  =>  '/service'], function () {
-            Route::get('/', [AdminController::class, 'service'])->name('service');
-            Route::post('/postService', [AdminController::class, 'postService'])->name('postService');
-            Route::delete('/delete/{id}', [AdminController::class, 'delService'])->name('delete');
-            Route::get('/edit/{id}', [AdminController::class, 'editService'])->name('edit');
-            Route::put('/{id}', [AdminController::class, 'updateService'])->name('update');
-            Route::post('/status{id}', [AdminController::class, 'statusService'])->name('status');
-
-        });
+        // Route::group(['prefix'  =>  '/lich-kham'], function () {
+        //     Route::get('/', [LichKhamController::class, 'index']);
+        // });
     });
 });
