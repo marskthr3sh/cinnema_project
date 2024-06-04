@@ -16,8 +16,7 @@
             @if ($message = Session::get('error'))
                 <div class="alert alert-danger alert-block">
                     <strong>{{ $message }}</strong>
-
-                </div>
+                    </div>
             @endif
             <form action="{{ route('login') }}" method="POST">
                 @csrf
@@ -51,11 +50,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-    }
-
-
-    .close-btn:hover {
-        color: red;
     }
 
     h1 {

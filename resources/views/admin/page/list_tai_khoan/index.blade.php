@@ -1,11 +1,12 @@
 @extends('admin.share.master')
 @section('noi_dung')
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="ps-3">
-            <h6 class="mb-0 text-uppercase">DANH SÁCH TÀI KHOẢN</h6>
-        </div>
-        {{-- Nút Thêm Acc --}}
-        <div class="ms-auto">
+    <div id="app">
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="ps-3">
+                <h6 class="mb-0 text-uppercase">DANH SÁCH TÀI KHOẢN</h6>
+            </div>
+            {{-- Nút Thêm Acc --}}
+            {{-- <div class="ms-auto">
             <button data-bs-toggle="modal" data-bs-target="#themAccModal" type="button" class="btn btn-primary">Tài Khoản
                 Mới</button>
             <div class="modal fade" id="themAccModal" tabindex="-1" aria-hidden="true">
@@ -19,49 +20,49 @@
                             <div class="row">
                                 <div class="col">
                                     <label class="mb-2">Email</label>
-                                    <input id="email" type="email" class="form-control mb-2"
+                                    <input v-model="them_moi.email" type="email" class="form-control mb-2"
                                         placeholder="Nhập vào Email">
                                 </div>
                                 <div class="col">
                                     <label class="mb-2">Mật Khẩu</label>
-                                    <input id="password" type="text" class="form-control mb-2"
+                                    <input v-model="them_moi.password" type="text" class="form-control mb-2"
                                         placeholder="Nhập vào mật khẩu">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label class="mb-2">Họ Và Tên</label>
-                                    <input id="ho_va_ten" type="text" class="form-control mb-2"
+                                    <input v-model="them_moi.ho_va_ten" type="text" class="form-control mb-2"
                                         placeholder="Nhập vào họ và tên">
                                 </div>
                                 <div class="col">
                                     <label class="mb-2">Số Điện Thoại</label>
-                                    <input id="so_dien_thoai" type="tel" class="form-control mb-2"
+                                    <input v-model="them_moi.so_dien_thoai" type="tel" class="form-control mb-2"
                                         placeholder="Nhập vào số điện thoại">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label class="mb-2">Ngày Sinh</label>
-                                    <input id="ngay_sinh" type="date" class="form-control mb-2"
+                                    <input v-model="them_moi.ngay_sinh" type="date" class="form-control mb-2"
                                         placeholder="Nhập vào ngày sinh">
                                 </div>
                                 <div class="col">
                                     <label class="mb-2">Địa chỉ</label>
-                                    <textarea id="dia_chi" rows="1" class="form-control mb-2" placeholder="Nhập vào địa chỉ"></textarea>
+                                    <textarea v-model="them_moi.dia_chi" rows="1" class="form-control mb-2" placeholder="Nhập vào địa chỉ"></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label class="mb-2">Is Block</label>
-                                    <select class="form-control mb-2" id="is_block">
+                                    <select class="form-control mb-2" v-model="them_moi.is_block">
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
                                     </select>
                                 </div>
                                 <div class="col">
                                     <label class="mb-2">Tình Trạng</label>
-                                    <select class="form-control mb-2" id="tinh_trang">
+                                    <select class="form-control mb-2" v-model="them_moi.tinh_trang">
                                         <option value="1">Đang Hoạt Động</option>
                                         <option value="0">Dừng Hoạt Động</option>
                                     </select>
@@ -71,39 +72,65 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="themTaiKhoan">Save changes</button>
+                            <button type="button" class="btn btn-primary" v-on:click="themTaiKhoan()">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div> --}}
         </div>
-    </div>
-    <hr />
+        <hr />
 
-    <div class="row">
-        <div class="col">
-            <div class="card border-primary border-bottom border-3 border-0">
-                <div class="card-header">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="tableA" class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">#</th>
-                                        <th class="text-center">Họ Và Tên</th>
-                                        <th class="text-center">Email</th>
-                                        <th class="text-center">Số Điện Thoại</th>
-                                        <th class="text-center">Is Block</th>
-                                        <th class="text-center">Tình Trạng</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+        <div class="row">
+            <div class="col">
+                <div class="card border-primary border-bottom border-3 border-0">
+                    <div class="card-header">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center align-middle">#</th>
+                                            <th class="text-center align-middle">Họ Và Tên</th>
+                                            <th class="text-center align-middle">Email</th>
+                                            <th class="text-center align-middle">Quyền</th>
+                                            <th class="text-center align-middle">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $count = 1;
+                                        @endphp
+                                        @foreach ($users as $user)
+                                            @csrf
+                                            <tr class="align-middle">
+                                                <th class="text-center align-middle">{{ $count++ }}</th>
+                                                <td class="text-center align-middle"> {{ $user->name }} </td>
+                                                <td class="text-center align-middle">{{ $user->email }}</td>
 
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal fade" id="delAccModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                <td class="text-center align-middle">
+                                                    @if ($user->is_admin == 1)
+                                                        Admin
+                                                    @else
+                                                        User
+                                                    @endif
+                                                </td>
+                                                <td class="text-center align-middle">
+                                                    <button data-bs-toggle="modal"
+                                                        data-bs-target="#editModal{{ $user->id }}"
+                                                        type="button"class="btn btn-success"><i
+                                                            class="fa-solid fa-user-shield"></i></button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                        type="button"class="btn btn-danger" style="margin-left: 10px"><i
+                                                            class="fa-solid fa-user-lock"></i></button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{-- <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -113,7 +140,6 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <input type="hidden" id="id_xoa">
                                         <div
                                             class="alert alert-warning border-0 bg-warning alert-dismissible fade show py-2">
                                             <div class="d-flex align-items-center">
@@ -121,8 +147,7 @@
                                                 </div>
                                                 <div class="ms-3">
                                                     <h6 class="mb-0 text-dark">Warning Alerts</h6>
-                                                    <div class="text-dark text-wrap">Bạn chắc chắn muốn xóa <b
-                                                            id="tk_xoa">XXX</b> này không?</div>
+                                                    <div class="text-dark text-wrap">Bạn chắc chắn muốn xóa <b>@{{ tt_xoa.ho_va_ten }}</b> này không?</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -130,83 +155,50 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Đóng</button>
-                                        <button id="aDel" type="button" class="btn btn-primary"
+                                        <button v-on:click="xoaTaiKhoan()" type="button" class="btn btn-primary"
                                             data-bs-dismiss="modal">Xác Nhận Xóa</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal fade" id="editAccModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">CẬP NHẬT TÀI KHOẢN</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <input id="e_id" type="hidden" class="form-control mb-2">
-                                            <div class="col">
-                                                <label class="mb-2">Email</label>
-                                                <input id="e_email" type="email" class="form-control mb-2"
-                                                    placeholder="Nhập vào Email">
-                                            </div>
-                                            <div class="col">
-                                                <label class="mb-2">Mật Khẩu</label>
-                                                <input id="e_password" type="text" class="form-control mb-2"
-                                                    placeholder="Nhập vào mật khẩu">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <label class="mb-2">Họ Và Tên</label>
-                                                <input id="e_ho_va_ten" type="text" class="form-control mb-2"
-                                                    placeholder="Nhập vào họ và tên">
-                                            </div>
-                                            <div class="col">
-                                                <label class="mb-2">Số Điện Thoại</label>
-                                                <input id="e_so_dien_thoai" type="tel" class="form-control mb-2"
-                                                    placeholder="Nhập vào số điện thoại">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <label class="mb-2">Ngày Sinh</label>
-                                                <input id="e_ngay_sinh" type="date" class="form-control mb-2"
-                                                    placeholder="Nhập vào ngày sinh">
-                                            </div>
-                                            <div class="col">
-                                                <label class="mb-2">Địa chỉ</label>
-                                                <textarea id="e_dia_chi" rows="1" class="form-control mb-2" placeholder="Nhập vào địa chỉ"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <label class="mb-2">Is Block</label>
-                                                <select class="form-control mb-2" id="e_is_block">
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label class="mb-2">Tình Trạng</label>
-                                                <select class="form-control mb-2" id="e_tinh_trang">
-                                                    <option value="1">Đang Hoạt Động</option>
-                                                    <option value="0">Dừng Hoạt Động</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                            </div> --}}
 
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                        <button id="aUpdate" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
-                                            changes</button>
+                            @foreach ($users as $user)
+                            <form action="{{ route('updateUser', ['id' => $user->id]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-ms">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">CẬP NHẬT QUYỀN</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <div class="btn-group" role="group"
+                                                    aria-label="Basic radio toggle button group">
+                                                    <select id="status-btn-{{ $user->id }}" name="is_admin"
+                                                        class="form-control mb-2">
+                                                        <option value="1"
+                                                            {{ $user->is_admin == 1 ? 'selected' : '' }}>Admin</option>
+                                                        <option value="0"
+                                                            {{ $user->is_admin == 0 ? 'selected' : '' }}>User</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary"
+                                                    data-bs-dismiss="modal">Save</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -215,190 +207,4 @@
     </div>
 @endsection
 @section('js')
-<script>
-    $("#themTaiKhoan").click(function() {
-        var tai_khoan    =   {
-            'email'         : $("#email").val(),
-            'password'      : $("#password").val(),
-            'so_dien_thoai' : $("#so_dien_thoai").val(),
-            'ngay_sinh'     : $("#ngay_sinh").val(),
-            'dia_chi'       : $("#dia_chi").val(),
-            'ho_va_ten'     : $("#ho_va_ten").val(),
-            'is_block'      : $("#is_block").val(),
-            'tinh_trang'    : $("#tinh_trang").val(),
-        };
-        // axios => chỉ gửi được object
-        axios
-            .post("{{ Route('taiKhoanStore') }}", tai_khoan)
-            .then((res) => {
-                if(res.data.status == true) {
-                    toastr.success(res.data.message);
-                    $('#themAccModal').modal('hide');
-                    loadData();
-                }
-            });
-    });
-
-    loadData();
-
-    function loadData()
-    {
-        axios
-            .post('{{ Route("taiKhoanData") }}')
-            .then((res) => {
-                var data = res.data.xxx;
-                var noi_dung = '';
-                $.each(data, function(k, v) {
-                    noi_dung +='<tr class="align-middle">';
-                    noi_dung +='<td class="text-center">'+ (k + 1) +'</td>';
-                    noi_dung +='<td >'+ v.ho_va_ten +'</td>';
-                    noi_dung +='<td >'+ v.email +'</td>';
-                    noi_dung +='<td class="text-center">'+ v.so_dien_thoai +'</td>';
-                    noi_dung +='<td class="text-center">';
-                    if (v.is_block == 0) {
-                        noi_dung +='<button  data-id="'+ v.id +'" class="block btn btn-warning" style="width: 150px">Chưa Kích Hoạt</button>';
-                    } else {
-                        noi_dung +='<button  data-id="'+ v.id +'" class="block btn btn-primary" style="width: 150px">Đã Kích Hoạt</button>';
-                    }
-                    noi_dung +='</td>';
-                    noi_dung +='<td class="text-center">';
-                    if (v.tinh_trang == 0) {
-                        noi_dung +='<button  data-id="'+ v.id +'" class="status btn btn-danger">Chưa Hoạt Động</button>';
-                    } else {
-                        noi_dung +='<button  data-id="'+ v.id +'" class="status btn btn-primary">Đang Hoạt Động</button>';
-                    }
-                    noi_dung +='</td>';
-                    noi_dung +='<td class="text-center">';
-                    noi_dung +='<button data-id="'+ v.id +'" data-bs-toggle="modal" data-bs-target="#editAccModal" type="button"class="edit btn btn-info">Cập Nhật</button>';
-                    noi_dung +='<button data-id="'+ v.id +'" data-bs-toggle="modal" data-bs-target="#delAccModal" type="button"class="del btn btn-danger" style="margin-left: 10px">Xóa Bỏ</button>';
-                    noi_dung +='</td>';
-                });
-                $("#tableA tbody").html(noi_dung);
-            });
-    }
-
-    $("body").on('click', '.status', function() {
-        var id  = $(this).data('id');
-        var payload     =   {
-            'id'    :   id,
-        };
-        axios
-            .post('{{ Route("taiKhoanStatus") }}', payload)
-            .then((res) => {
-                if(res.data.status) {
-                    toastr.success(res.data.message, 'Success');
-                    loadData();
-                } else {
-                    toastr.error(res.data.message, 'Error');
-                }
-            });
-    });
-
-    $("body").on('click', '.block', function() {
-        var id  = $(this).data('id');
-        var payload     =   {
-            'id'    :   id,
-        };
-        axios
-            .post('{{ Route("taiKhoanBlock") }}', payload)
-            .then((res) => {
-                if(res.data.status) {
-                    toastr.success(res.data.message, 'Success');
-                    loadData();
-                } else {
-                    toastr.error(res.data.message, 'Error');
-                }
-            });
-    });
-
-    $("body").on('click', '.del', function() {
-        var id  = $(this).data('id');
-        var payload     =   {
-            'id'    :   id,
-        };
-        axios
-            .post('{{ Route("taiKhoanInfo") }}', payload)
-            .then((res) => {
-                if(res.data.status) {
-                    $("#tk_xoa").text(res.data.data.ho_va_ten);
-                    $("#id_xoa").val(res.data.data.id);
-                } else {
-                    toastr.error(res.data.message, 'Error');
-                    setTimeout(() => {
-                        $('#delModal').modal('hide');
-                    }, 500);
-                }
-            });
-    });
-
-    $("body").on('click', '.edit', function() {
-        var id  = $(this).data('id');
-        var payload     =   {
-            'id'    :   id,
-        };
-        axios
-            .post('{{ Route("taiKhoanInfo") }}', payload)
-            .then((res) => {
-                if(res.data.status) {
-                    $("#e_id").val(res.data.data.id);
-                    $('#e_email').val(res.data.data.email);
-                    $('#e_password').val(res.data.data.password);
-                    $('#e_so_dien_thoai').val(res.data.data.so_dien_thoai);
-                    $('#e_ngay_sinh').val(res.data.data.ngay_sinh);
-                    $('#e_dia_chi').val(res.data.data.dia_chi);
-                    $('#e_ho_va_ten').val(res.data.data.ho_va_ten);
-                    $('#e_is_block').val(res.data.data.is_block);
-                    $('#e_tinh_trang').val(res.data.data.tinh_trang);
-                } else {
-                    toastr.error(res.data.message, 'Error');
-                    setTimeout(() => {
-                        $('#delModal').modal('hide');
-                    }, 500);
-                }
-            });
-    });
-
-    $("body").on('click', '#aDel', function() {
-        var id = $("#id_xoa").val();
-        var payload     =   {
-            'id'    :   id,
-        };
-        axios
-            .post('{{ Route("taiKhoanDel") }}', payload)
-            .then((res) => {
-                if(res.data.status) {
-                    toastr.success(res.data.message, 'Success');
-                    loadData();
-                } else {
-                    toastr.error(res.data.message, 'Error');
-                }
-            });
-    });
-
-    $("#aUpdate").click(function() {
-        var new_phim    =   {
-            'id'            : $("#e_id").val(),
-            'email'         : $("#e_email").val(),
-            'password'      : $("#e_password").val(),
-            'so_dien_thoai' : $("#e_so_dien_thoai").val(),
-            'ngay_sinh'     : $("#e_ngay_sinh").val(),
-            'dia_chi'       : $("#e_dia_chi").val(),
-            'ho_va_ten'     : $("#e_ho_va_ten").val(),
-            'is_block'      : $("#e_is_block").val(),
-            'tinh_trang'    : $("#e_tinh_trang").val(),
-        };
-        // axios => chỉ gửi được object
-        axios
-            .post("{{ Route('taiKhoanUpdate') }}", new_phim)
-            .then((res) => {
-                if(res.data.status == true) {
-                    toastr.success(res.data.message);
-                    $('#editAccModal').modal('hide');
-                    loadData();
-                } else {
-                    toastr.error(res.data.message);
-                }
-            });
-    });
-</script>
 @endsection

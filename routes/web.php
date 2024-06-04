@@ -7,23 +7,23 @@ use App\Http\Controllers\DanhSachTaiKhoanController;
 use App\Http\Controllers\DichVuController;
 use App\Http\Controllers\DonViController;
 use App\Http\Controllers\GheChieuController;
-use App\Http\Controllers\LichChieuController;
-use App\Http\Controllers\LichKhamController;
+// use App\Http\Controllers\LichChieuController;
+// use App\Http\Controllers\LichKhamController;
 use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongChieuController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SinhVienController;
+// use App\Http\Controllers\ServiceController;
+// use App\Http\Controllers\SinhVienController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\thongKeController;
 use App\Http\Controllers\TrangChuController;
+use App\Models\DanhSachTaiKhoan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+    // client
 Route::get('/', [TrangChuController::class, 'home']);
 
-
-// Route::get('/', [TrangChuController::class, 'index']);
 Route::get('/register', [CustomerController::class, 'viewRegister'])->name('register');
 Route::post('/register', [CustomerController::class, 'postRegister']);
 
@@ -48,6 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/search', [TrangChuController::class, 'timKiem'])->name('search');
 });
 
+
+
+        /// admin
 Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login.post');
 Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
@@ -81,14 +84,17 @@ Route::group(['middleware'=> 'admin'],function () {
         });
 
         /////////////////////////////////////////////////////////
+        Route::group(['prefix'  =>  '/user'], function () {
+            Route::get('/', [DanhSachTaiKhoanController::class, 'user'])->name('user');
+            Route::get('/edit/{id}', [DanhSachTaiKhoanController::class, 'editUser'])->name('editUser');
+            Route::put('/{id}', [DanhSachTaiKhoanController::class, 'updateUser'])->name('updateUser');
+
+        });
         Route::group(['prefix'  =>  '/phong-chieu'], function () {
             Route::get('/', [PhongChieuController::class, 'index']);
             Route::get('/vue', [PhongChieuController::class, 'indexVue']);
         });
-        Route::group(['prefix'  =>  '/danh-sach-tai-khoan'], function () {
-            Route::get('/', [DanhSachTaiKhoanController::class, 'index']);
-            Route::get('/vue', [DanhSachTaiKhoanController::class, 'indexVue']);
-        });
+
         Route::group(['prefix'  =>  '/ghe-chieu'], function () {
             Route::get('/{id_phong}', [GheChieuController::class, 'index']);
         });
@@ -114,4 +120,5 @@ Route::group(['middleware'=> 'admin'],function () {
         //     Route::get('/', [LichKhamController::class, 'index']);
         // });
     });
+
 });

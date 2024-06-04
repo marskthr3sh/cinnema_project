@@ -26,10 +26,10 @@
                 </div>
                 <div class="menu-title">Thống Kê</div>
             </a>
-            <a class="nav-link" href="/admin/phong-chieu/vue">
-                <div class="parent-icon"><i class="fa-brands fa-chromecast"></i>
+            <a class="nav-link" href="/admin/user">
+                <div class="parent-icon"><i class="fa-solid fa-user"></i>
                 </div>
-                <div class="menu-title">Phòng Chiếu</div>
+                <div class="menu-title">User</div>
             </a>
 
             <a class="nav-link" href="/admin/don-vi">
@@ -41,12 +41,6 @@
                 <div class="parent-icon"><i class="fa-solid fa-film"></i>
                 </div>
                 <div class="menu-title">Phim</div>
-            </a>
-
-            <a class="nav-link" href="/admin/ghe-chieu/vue">
-                <div class="parent-icon"><i class="fa-solid fa-couch"></i>
-                </div>
-                <div class="menu-title">Ghế Chiếu</div>
             </a>
             <a class="nav-link" href="/admin/service/">
                 <div class="parent-icon"><i class="fa-brands fa-servicestack"></i>
