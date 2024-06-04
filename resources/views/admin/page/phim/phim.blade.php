@@ -1,6 +1,5 @@
 @extends('admin.share.master')
 @section('noi_dung')
-
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="ps-3">
             <h6 class="mb-0 text-uppercase">DANH SÁCH PHIM</h6>
@@ -15,7 +14,7 @@
                             <h5 class="modal-title">Thêm Mới Phim</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="{{route('phim')}}" method="POST">
+                        <form action="{{ route('phim') }}" method="POST">
                             @csrf
                             <div class="was-validated">
                                 <div class="modal-body">
@@ -97,16 +96,17 @@
                                         </div>
                                         <div class="col-9">
                                             <label class="mb-2">Mô Tả</label>
-                                            <textarea name="mo_ta" class="form-control" cols="30" rows="5" placeholder="Nhập vào mô tả phim" required=""></textarea>
+                                            <textarea name="mo_ta" class="form-control" cols="30" rows="5" placeholder="Nhập vào mô tả phim"
+                                                required=""></textarea>
                                         </div>
                                     </div>
                                 </div>
-                              </div>
+                            </div>
 
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="showToastrBtn" class="btn btn-primary" >Thêm Phim</button>
+                                <button type="submit" id="showToastrBtn" class="btn btn-primary">Thêm Phim</button>
                             </div>
                         </form>
                     </div>
@@ -122,7 +122,7 @@
                 <div class="card-header">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table  class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
@@ -145,11 +145,12 @@
                                     @endif --}}
                                     @if ($message = Session::get('success'))
                                         <div id="success-alert" class="text-center alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert"><i class="fa-solid fa-check"></i></button>
+                                            <button type="button" class="close" data-dismiss="alert"><i
+                                                    class="fa-solid fa-check"></i></button>
                                             <strong>{{ $message }}</strong>
                                         </div>
                                         <script>
-                                            setTimeout(function(){
+                                            setTimeout(function() {
                                                 $('#success-alert').fadeOut('slow');
                                             }, 3000);
                                         </script>
@@ -157,12 +158,13 @@
 
                                     @if ($message = Session::get('error'))
                                         <div id="success-alert" class="text-center alert alert-danger alert-block">
-                                            <button type="button" class="close" data-dismiss="alert"><i class="fa-solid fa-check"></i></button>
+                                            <button type="button" class="close" data-dismiss="alert"><i
+                                                    class="fa-solid fa-check"></i></button>
                                             <strong>{{ $message }}</strong>
                                         </div>
 
                                         <script>
-                                            setTimeout(function(){
+                                            setTimeout(function() {
                                                 $('#success-alert').fadeOut('slow');
                                             }, 3000);
                                         </script>
@@ -173,8 +175,8 @@
                                     @endphp
 
                                     @foreach ($data_phim as $data_phims)
-                                        <tr >
-                                            <th class="text-center align-middle " >{{ $count++ }}</th>
+                                        <tr>
+                                            <th class="text-center align-middle ">{{ $count++ }}</th>
                                             <td class="align-middle">{{ $data_phims->ten_phim }}</td>
                                             <td class="align-middle">{{ $data_phims->the_loai }}</td>
                                             <td class="align-middle text-center">
@@ -194,12 +196,15 @@
                                             <td class="text-center align-middle">
                                                 {{-- edit --}}
                                                 <div class="d-inline">
-                                                    <a href="/admin/phim/edit/{{$data_phims->id}}">
-                                                        <button class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                    <a href="/admin/phim/edit/{{ $data_phims->id }}">
+                                                        <button class="btn btn-info"><i
+                                                                class="fa-solid fa-pen-to-square"></i></button>
                                                     </a>
-
-                                                {{-- delete --}}
-                                                <button data-bs-toggle="modal" data-bs-target="#deleteModal{{ $data_phims->id }}" type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                                    {{-- delete --}}
+                                                    <button data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal{{ $data_phims->id }}" type="submit"
+                                                        class="btn btn-danger"><i
+                                                            class="fa-solid fa-trash-can"></i></button>
                                             </td>
 
                                         </tr>
@@ -208,42 +213,45 @@
                             </table>
                         </div>
                         @foreach ($data_phim as $data_phims)
-                        <div class="modal fade" id="deleteModal{{ $data_phims->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa Phim</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div
-                                            class="alert alert-warning border-0 bg-warning alert-dismissible fade show py-2">
-                                            <div class="d-flex align-items-center">
-                                                <div class="font-35 text-dark"><i class='bx bx-info-circle'></i>
-                                                </div>
-                                                <div class="ms-3">
-                                                    <h6 class="mb-0 text-dark">Warning Alerts</h6>
-                                                    <input type="hidden">
-                                                    <div class="text-dark">Bạn có chắc chắn muốn xóa phim <b class="text-danger">{{$data_phims->ten_phim}}</b> không!</div>
+                            <div class="modal fade" id="deleteModal{{ $data_phims->id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Xóa Phim</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div
+                                                class="alert alert-warning border-0 bg-warning alert-dismissible fade show py-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="font-35 text-dark"><i class='bx bx-info-circle'></i>
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0 text-dark">Warning Alerts</h6>
+                                                        <input type="hidden">
+                                                        <div class="text-dark">Bạn có chắc chắn muốn xóa phim <b
+                                                                class="text-danger">{{ $data_phims->ten_phim }}</b> không!
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Close</button>
-                                                <form action="{{ route('delete', $data_phims->id) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button data-bs-toggle="modal" data-bs-target="#deleteModal" type="submit" class="btn btn-danger">Xóa</button>
-                                                </form>
-
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <form action="{{ route('phim.delete', $data_phims->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    type="submit" class="btn btn-danger">Xóa</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
 
                         {{-- <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
@@ -349,14 +357,12 @@
     </div>
 @endsection
 @section('js')
-
-<script>
-    $(document).ready(function(){
-        CKEDITOR.replace('mo_ta');
-        setTimeout(function(){
-            $('#success-alert').fadeOut('slow');
-        }, 3000);
-    });
-</script>
-
+    <script>
+        $(document).ready(function() {
+            CKEDITOR.replace('mo_ta');
+            setTimeout(function() {
+                $('#success-alert').fadeOut('slow');
+            }, 3000);
+        });
+    </script>
 @endsection

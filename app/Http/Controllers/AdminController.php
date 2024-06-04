@@ -23,14 +23,19 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        // lấy dữ liệu từ request và lưu vào biến $comfirm
+        $comfirm = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($comfirm)) {
+            //kiểm tra xem thông tin đăng nhập có hợp lệ hay không.
+
+            // nếu người dùng đó là admin thì chuyển tới route phim
+            // nếu không thì sẽ đăng xuất, hướng đến trang đăng nhập admin
             if (Auth::user()->is_admin) {
                 return redirect()->route('phim');
             } else {
                 Auth::logout();
-                return redirect()->route('admin.login')->with('error', 'dAccess denie');
+                return redirect()->route('admin.login')->with('error', 'Quyền truy cập bị từ chối');
             }
         }
 
@@ -41,6 +46,7 @@ class AdminController extends Controller
         Auth::logout();
         return redirect()->route('admin.login');
     }
+
     public function index()
     {
         return view('admin.page.admin.index');
@@ -181,6 +187,7 @@ class AdminController extends Controller
         ]);
         return redirect()->route('service');
     }
+
     public function delService($id)
     {
         $item = Service::findOrFail($id);
@@ -212,22 +219,22 @@ class AdminController extends Controller
         return redirect()->route('service')->with('success', 'Chỉnh sửa dịch vụ thành công');
 
     }
-    public function statusService($id)
-    {
-        $service = Service::find($id);
-        if ($service) {
-            $service->tinh_trang = !$service->tinh_trang;
-            $service->save();
+    // public function statusService($id)
+    // {
+    //     $service = Service::find($id);
+    //     if ($service) {
+    //         $service->tinh_trang = !$service->tinh_trang;
+    //         $service->save();
 
-            return response()->json([
-                'success' => true,
-                'new_status' => $service->tinh_trang ? 'Đang Kinh Doanh' : 'Dừng Kinh Doanh'
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => 'Service not found'
-            ], 404);
-        }
-    }
+    //         return response()->json([
+    //             'success' => true,
+    //             'new_status' => $service->tinh_trang ? 'Đang Kinh Doanh' : 'Dừng Kinh Doanh'
+    //         ]);
+    //     } else {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Service not found'
+    //         ], 404);
+    //     }
+    // }
 }

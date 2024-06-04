@@ -146,7 +146,7 @@
                         </table>
                         {{-- edit --}}
                         @foreach ($services as $service)
-                            <form action="{{ route('update', ['id' => $service->id]) }}" method="POST">
+                            <form action="{{ route('service.update', ['id' => $service->id]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="modal fade" id="editModal{{ $service->id }}" tabindex="-1"
@@ -230,7 +230,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <form action="{{ route('delete', $service->id) }}" method="POST"
+                                            <form action="{{ route('service.delete', $service->id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')

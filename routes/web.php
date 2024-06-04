@@ -16,7 +16,6 @@ use App\Http\Controllers\PhongChieuController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\thongKeController;
 use App\Http\Controllers\TrangChuController;
-use App\Models\DanhSachTaiKhoan;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -63,9 +62,9 @@ Route::group(['middleware'=> 'admin'],function () {
         Route::group(['prefix'  =>  '/phim'], function () {
             Route::get('/', [PhimController::class, 'phim'])->name('phim');
             Route::post('/', [PhimController::class, 'postphim']);
-            Route::delete('/delete/{id}', [PhimController::class, 'delPhim'])->name('delete');
-            Route::get('/edit/{id}', [PhimController::class, 'edit'])->name('edit');
-            Route::put('/{id}', [PhimController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [PhimController::class, 'delPhim'])->name('phim.delete');
+            Route::get('/edit/{id}', [PhimController::class, 'edit'])->name('phim.edit');
+            Route::put('/{id}', [PhimController::class, 'update'])->name('phim.update');
         });
         // thong-ke
         Route::group(['prefix' => '/thong-ke'], function () {
@@ -77,16 +76,17 @@ Route::group(['middleware'=> 'admin'],function () {
         Route::group(['prefix'  =>  '/service'], function () {
             Route::get('/', [AdminController::class, 'service'])->name('service');
             Route::post('/postService', [AdminController::class, 'postService'])->name('postService');
-            Route::delete('/delete/{id}', [AdminController::class, 'delService'])->name('delete');
-            Route::get('/edit/{id}', [AdminController::class, 'editService'])->name('edit');
-            Route::put('/{id}', [AdminController::class, 'updateService'])->name('update');
-            Route::post('/status{id}', [AdminController::class, 'statusService'])->name('status');
+            Route::delete('/delete/{id}', [AdminController::class, 'delService'])->name('service.delete');
+            Route::get('/edit/{id}', [AdminController::class, 'editService'])->name('service.edit');
+            Route::put('/{id}', [AdminController::class, 'updateService'])->name('service.update');
+            // Route::post('/status{id}', [AdminController::class, 'statusService'])->name('status');
         });
 
         /////////////////////////////////////////////////////////
+        // Quản lý người dùng, cập nhật quyền admin, user
         Route::group(['prefix'  =>  '/user'], function () {
             Route::get('/', [DanhSachTaiKhoanController::class, 'user'])->name('user');
-            Route::get('/edit/{id}', [DanhSachTaiKhoanController::class, 'editUser'])->name('editUser');
+            // Route::get('/edit/{id}', [DanhSachTaiKhoanController::class, 'editUser'])->name('editUser');
             Route::put('/{id}', [DanhSachTaiKhoanController::class, 'updateUser'])->name('updateUser');
 
         });

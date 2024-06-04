@@ -101,6 +101,20 @@
                                         @php
                                             $count = 1;
                                         @endphp
+                                        @if ($message = Session::get('success'))
+                                        <div id="success-alert" class="text-center alert alert-success alert-block">
+                                            <button type="button" class="close" data-dismiss="alert"><i
+                                                    class="fa-solid fa-check"></i></button>
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+
+                                        <script>
+                                            setTimeout(function() {
+                                                $('#success-alert').fadeOut('slow');
+                                            }, 3000);
+                                        </script>
+                                    @endif
+
                                         @foreach ($users as $user)
                                             @csrf
                                             <tr class="align-middle">
@@ -117,7 +131,7 @@
                                                 </td>
                                                 <td class="text-center align-middle">
                                                     <button data-bs-toggle="modal"
-                                                        data-bs-target="#editModal{{ $user->id }}"
+                                                        data-bs-target="#editModal{{$user->id}}"
                                                         type="button"class="btn btn-success"><i
                                                             class="fa-solid fa-user-shield"></i></button>
                                                     <button data-bs-toggle="modal" data-bs-target="#deleteModal"
@@ -170,28 +184,21 @@
                                     <div class="modal-dialog modal-ms">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">CẬP NHẬT QUYỀN</h5>
+                                                <h5 class="modal-title">CẬP NHẬT QUYỀN</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body text-center">
-                                                <div class="btn-group" role="group"
-                                                    aria-label="Basic radio toggle button group">
-                                                    <select id="status-btn-{{ $user->id }}" name="is_admin"
-                                                        class="form-control mb-2">
-                                                        <option value="1"
-                                                            {{ $user->is_admin == 1 ? 'selected' : '' }}>Admin</option>
-                                                        <option value="0"
-                                                            {{ $user->is_admin == 0 ? 'selected' : '' }}>User</option>
+                                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                    <select id="status-btn-{{ $user->id }}" name="is_admin" class="form-control mb-2">
+                                                        <option value="1" {{ $user->is_admin == 1 ? 'selected' : '' }}>Admin</option>
+                                                        <option value="0" {{ $user->is_admin == 0 ? 'selected' : '' }}>User</option>
                                                     </select>
                                                 </div>
-
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary"
-                                                    data-bs-dismiss="modal">Save</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save</button>
                                             </div>
                                         </div>
                                     </div>

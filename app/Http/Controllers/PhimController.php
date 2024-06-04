@@ -60,7 +60,7 @@ class PhimController extends Controller
         $item = phim::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('phim')->with('error', 'Xóa Phim thành công');
+        return redirect()->route('phim')->with('error', 'Xóa dịch vụ thành công');
     }
 
     public function edit($id){

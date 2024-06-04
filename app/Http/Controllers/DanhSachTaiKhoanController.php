@@ -14,20 +14,12 @@ class DanhSachTaiKhoanController extends Controller
             'users' => $users,
         ]);
     }
-    public function editUser($id){
+    public function updateUser(Request $request, string $id){
 
-        $edit  = User::find($id);
-
-        return view('admin.page.list_tai_khoan.index',['edit' => $edit]);
-
-    }
-    public function updateUser(Request $request,string $id){
-        $validateDate = $request->validate([
-            'is_admin'       => 'required',
-        ]);
-        $update = User::find($id);
-        $update->update($validateDate);
-        return redirect()->route('user')->with('success', 'Chỉnh sửa dịch vụ thành công');
+        $user = User::find($id);
+        $user->is_admin = $request->input('is_admin');
+        $user->save();
+        return redirect()->route('user')->with('success', 'Cập nhật quyền thành công');
 
     }
 }

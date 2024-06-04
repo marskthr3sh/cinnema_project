@@ -5,7 +5,7 @@
             <h2 class="modal-title">Cập Nhật Phim</h2>
         </div>
         <hr>
-        <form action="{{ route('update', ['id' => $edit->id]) }}" method="POST">
+        <form action="{{ route('phim.update', ['id' => $edit->id]) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="modal-body">
