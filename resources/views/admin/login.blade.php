@@ -21,11 +21,6 @@
 									<div class="text-center">
 										<h3 class="">Login Admin</h3>
 									</div>
-                                    @if(session('error'))
-                                        <div class="alert alert-danger text-center">
-                                            {{ session('error') }}
-                                        </div>
-                                    @endif
                                     <form method="POST" action="{{ route('admin.login.post') }}">
                                         @csrf
                                         <div class="form-body">
@@ -58,6 +53,17 @@
 	@include('admin.share.js')
 
 </body>
-@section('js')
-@endsection
+<script>
+    toastr.options ={
+        "progressBar": true,
+        "closeButton": true,
+    }
 
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}", 'SUCCESS');
+    @endif
+
+    @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}", 'ERROR');
+    @endif
+</script>

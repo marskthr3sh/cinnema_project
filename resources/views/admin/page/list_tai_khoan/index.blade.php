@@ -101,19 +101,6 @@
                                         @php
                                             $count = 1;
                                         @endphp
-                                        @if ($message = Session::get('success'))
-                                        <div id="success-alert" class="text-center alert alert-success alert-block">
-                                            <button type="button" class="close" data-dismiss="alert"><i
-                                                    class="fa-solid fa-check"></i></button>
-                                            <strong>{{ $message }}</strong>
-                                        </div>
-
-                                        <script>
-                                            setTimeout(function() {
-                                                $('#success-alert').fadeOut('slow');
-                                            }, 3000);
-                                        </script>
-                                    @endif
 
                                         @foreach ($users as $user)
                                             @csrf
@@ -214,4 +201,17 @@
     </div>
 @endsection
 @section('js')
+<script>
+    toastr.options ={
+        "progressBar": true,
+        "closeButton": true,
+    }
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}", 'SUCCESS');
+    @endif
+
+    @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}", 'ERROR');
+    @endif
+</script>
 @endsection

@@ -68,8 +68,8 @@ Route::group(['middleware'=> 'admin'],function () {
         });
         // thong-ke
         Route::group(['prefix' => '/thong-ke'], function () {
-            Route::get('/', [AdminController::class, 'thongKe']);
-            Route::post('/', [AdminController::class, 'thongKe'])->name('thongKe');
+            Route::get('/', [AdminController::class, 'thongKe'])->name('thongKe');
+            Route::post('/', [AdminController::class, 'thongKe'])->name('postThongke');
             Route::post('/', [AdminController::class, 'ajaxthongKe'])->name('ajaxthongKe');
         });
         // Quản lý dịch vụ
@@ -82,7 +82,6 @@ Route::group(['middleware'=> 'admin'],function () {
             // Route::post('/status{id}', [AdminController::class, 'statusService'])->name('status');
         });
 
-        /////////////////////////////////////////////////////////
         // Quản lý người dùng, cập nhật quyền admin, user
         Route::group(['prefix'  =>  '/user'], function () {
             Route::get('/', [DanhSachTaiKhoanController::class, 'user'])->name('user');

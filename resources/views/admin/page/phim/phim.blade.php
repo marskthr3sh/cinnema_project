@@ -137,13 +137,8 @@
                                 </thead>
                                 <tbody>
 
+
                                     {{-- @if ($message = Session::get('success'))
-                                    <div class="text-center alert alert-success alert-block">
-                                        <button type="button" class="close" data-dismiss="alert"><i class="fa-solid fa-check"></i></button>
-                                        <strong >{{ $message }}</strong>
-                                    </div>
-                                    @endif --}}
-                                    @if ($message = Session::get('success'))
                                         <div id="success-alert" class="text-center alert alert-success alert-block">
                                             <button type="button" class="close" data-dismiss="alert"><i
                                                     class="fa-solid fa-check"></i></button>
@@ -168,7 +163,7 @@
                                                 $('#success-alert').fadeOut('slow');
                                             }, 3000);
                                         </script>
-                                    @endif
+                                    @endif --}}
 
                                     @php
                                         $count = 1;
@@ -358,11 +353,17 @@
 @endsection
 @section('js')
     <script>
-        $(document).ready(function() {
-            CKEDITOR.replace('mo_ta');
-            setTimeout(function() {
-                $('#success-alert').fadeOut('slow');
-            }, 3000);
-        });
+        toastr.options ={
+            "progressBar": true,
+            "closeButton": true,
+        }
+
+        @if(Session::has('success'))
+            toastr.success("{{ Session::get('success') }}", 'SUCCESS');
+        @endif
+
+        @if(Session::has('error'))
+            toastr.error("{{ Session::get('error') }}", 'Cập Nhật');
+        @endif
     </script>
 @endsection

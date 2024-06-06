@@ -60,7 +60,7 @@ class PhimController extends Controller
         $item = phim::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('phim')->with('error', 'Xóa dịch vụ thành công');
+        return redirect()->route('phim')->with('error','Xóa phim thành công');
     }
 
     public function edit($id){
@@ -70,11 +70,9 @@ class PhimController extends Controller
         if($edit){
             return view('admin.page.phim.edit',['edit' => $edit]);
         }else{
-            return view('admin.page.phim.found');
+
+            return view('admin.page.phim.found')->with('error', 'không tìm thấy phim');
         }
-
-
-        // return view('admin.page.phim.edit',['edit' => $edit]);
     }
      public function update(Request $request,string $id)
     {
@@ -98,8 +96,7 @@ class PhimController extends Controller
         $update = Phim::find($id);
         $update->update($validateDate);
 
-        // return redirect()->route('phim')->with('success', 'Thêm mới thành công');
-        return redirect()->route('phim')->with('success', 'Chỉnh sửa phim thành công');
+        return redirect()->route('phim')->with('success', 'Chỉnh sửa thành công !');
 
     }
 

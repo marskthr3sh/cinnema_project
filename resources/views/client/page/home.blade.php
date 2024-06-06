@@ -26,8 +26,17 @@
     </button>
 </div>
 <hr>
-123
 @endsection
 @section('js')
+<script>
+    toastr.options ={
+        "progressBar": true,
+        "closeButton": true,
+    }
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}", 'SUCCESS');
+    @endif
 
+
+</script>
 @endsection

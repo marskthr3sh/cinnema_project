@@ -75,7 +75,7 @@
                                     $count = 1;
                                 @endphp
 
-                                @if ($message = Session::get('success'))
+                                {{-- @if ($message = Session::get('success'))
                                     <div id="success-alert" class="text-center alert alert-success alert-block">
                                         <button type="button" class="close" data-dismiss="alert"><i
                                                 class="fa-solid fa-check"></i></button>
@@ -101,7 +101,7 @@
                                             $('#success-alert').fadeOut('slow');
                                         }, 3000);
                                     </script>
-                                @endif
+                                @endif --}}
                                 @foreach ($services as $service)
                                     <tr>
                                         <th class="text-center align-middle">{{ $count++ }}</th>
@@ -164,7 +164,6 @@
                                                 <input name="ten_dich_vu" value="{{ $service->ten_dich_vu }}"
                                                     type="text" class="form-control mb-2"
                                                     placeholder="Nhập vào tên dịch vụ">
-
                                                 <label class="mb-2">Mô Tả</label>
                                                 <textarea name="mo_ta" cols="30" rows="5" class="form-control mb-2">{!! strip_tags($service->mo_ta) !!}</textarea>
 
@@ -274,4 +273,19 @@
         </div>
     </div>
 @endsection
+@section('js')
+<script>
+    toastr.options ={
+        "progressBar": true,
+        "closeButton": true,
+    }
 
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}", 'SUCCESS');
+    @endif
+
+    @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}", 'Cập Nhật');
+    @endif
+</script>
+@endsection

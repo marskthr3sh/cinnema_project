@@ -11,13 +11,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User;
-use App\Http\Controllers\Validator;
 
 class CustomerController extends Controller
 {
     public function viewRegister()
     {
-        return view('client.login_register.register');
+        return view('client.page.login_register.register');
     }
 
     public function postRegister(Request $request)
@@ -43,16 +42,19 @@ class CustomerController extends Controller
 
     public function viewLogin()
     {
-        return view('client.login_register.login');
+        return view('client.page.login_register.login');
     }
 
     public function postLogin(Request $request)
     {
         // Kiểm tra thông tin đăng nhập sử dụng Auth::attempt
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+
+            session()->flash('success', 'Đăng Nhập Thành Công!');
             return redirect('');
         }
-        return redirect()->back()->with('error', 'X Nhập Sai');
+        session()->flash('error', 'Nhập sai thông tin!');
+        return redirect()->back();
     }
     public function viewLogout()
     {

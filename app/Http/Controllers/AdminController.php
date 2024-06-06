@@ -32,7 +32,7 @@ class AdminController extends Controller
             // nếu người dùng đó là admin thì chuyển tới route phim
             // nếu không thì sẽ đăng xuất, hướng đến trang đăng nhập admin
             if (Auth::user()->is_admin) {
-                return redirect()->route('phim');
+                return redirect()->route('thongKe')->with('success', 'Đăng nhập Quyền Admin');
             } else {
                 Auth::logout();
                 return redirect()->route('admin.login')->with('error', 'Quyền truy cập bị từ chối');
@@ -44,7 +44,7 @@ class AdminController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('error', 'Đăng Xuất thành công');
     }
 
     public function index()
@@ -185,7 +185,7 @@ class AdminController extends Controller
             'tinh_trang'         => $tinh_trang,
             'id_don_vi'          => $id_don_vi,
         ]);
-        return redirect()->route('service');
+        return redirect()->route('service')->with('success','Thêm mới dịch vụ thành công');
     }
 
     public function delService($id)
@@ -203,6 +203,7 @@ class AdminController extends Controller
         return view('admin.page.service_.service',['edit' => $edit]);
 
     }
+
      public function updateService(Request $request,string $id)
     {
         $validateDate = $request->validate([
@@ -219,22 +220,4 @@ class AdminController extends Controller
         return redirect()->route('service')->with('success', 'Chỉnh sửa dịch vụ thành công');
 
     }
-    // public function statusService($id)
-    // {
-    //     $service = Service::find($id);
-    //     if ($service) {
-    //         $service->tinh_trang = !$service->tinh_trang;
-    //         $service->save();
-
-    //         return response()->json([
-    //             'success' => true,
-    //             'new_status' => $service->tinh_trang ? 'Đang Kinh Doanh' : 'Dừng Kinh Doanh'
-    //         ]);
-    //     } else {
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => 'Service not found'
-    //         ], 404);
-    //     }
-    // }
 }
