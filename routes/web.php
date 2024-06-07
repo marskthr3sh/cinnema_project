@@ -7,12 +7,8 @@ use App\Http\Controllers\DanhSachTaiKhoanController;
 use App\Http\Controllers\DichVuController;
 use App\Http\Controllers\DonViController;
 use App\Http\Controllers\GheChieuController;
-// use App\Http\Controllers\LichChieuController;
-// use App\Http\Controllers\LichKhamController;
 use App\Http\Controllers\PhimController;
 use App\Http\Controllers\PhongChieuController;
-// use App\Http\Controllers\ServiceController;
-// use App\Http\Controllers\SinhVienController;
 use App\Http\Controllers\SlideController;
 use App\Http\Controllers\thongKeController;
 use App\Http\Controllers\TrangChuController;
@@ -108,16 +104,7 @@ Route::group(['middleware'=> 'admin'],function () {
             Route::get('/', [SlideController::class, 'index']);
             Route::get('/vue', [SlideController::class, 'indexVue']);
         });
-        // Route::group(['prefix'  =>  '/lich-chieu'], function () {
-        //     Route::get('/', [LichChieuController::class, 'index']);
-        // });
-        // Route::group(['prefix'  =>  '/sinh-vien'], function () {
-        //     Route::get('/', [SinhVienController::class, 'index']);
-        // });
 
-        // Route::group(['prefix'  =>  '/lich-kham'], function () {
-        //     Route::get('/', [LichKhamController::class, 'index']);
-        // });
     });
 
 });

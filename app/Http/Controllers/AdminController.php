@@ -47,10 +47,10 @@ class AdminController extends Controller
         return redirect()->route('admin.login')->with('error', 'Đăng Xuất thành công');
     }
 
-    public function index()
-    {
-        return view('admin.page.admin.index');
-    }
+    // public function index()
+    // {
+    //     return view('admin.page.admin.index');
+    // }
 
 
     public function thongKe(Request $request)

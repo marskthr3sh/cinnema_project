@@ -7,7 +7,6 @@
             </div>
         </div>
         <hr />
-        {{-- //11 --}}
         <div class="row">
             <div class="col-4">
                 <div class="card">
@@ -108,8 +107,10 @@
                         if (response.results.length > 0) {
                             $.each(response.results, function(index, result) {
                                 var count = index + 1;
-                                var nbd = response.gio_bat_dau  ? new Date(response.gio_bat_dau).toLocaleDateString() : '';
-                                var nkt = response.gio_ket_thuc ? new Date(response.gio_ket_thuc).toLocaleDateString() : '';
+                                var nbd = response.gio_bat_dau ? new Date(response
+                                    .gio_bat_dau).toLocaleDateString() : '';
+                                var nkt = response.gio_ket_thuc ? new Date(response
+                                    .gio_ket_thuc).toLocaleDateString() : '';
 
                                 if (nbd == null) {
                                     nbd = '';
@@ -117,17 +118,24 @@
                                 }
                                 var newRow =
                                     "<tr>" +
-                                    "<th class='text-center align-middle'>" + count +"</th>" +
-                                    "<td class='text-center align-middle'>" + result.ten_phim + "</td>" +
-                                    "<td class='text-center align-middle'>" + result.rap_chieu + "</td>" +
-                                    "<td class='text-center align-middle thoi_gian'>" +nbd + " - " + nkt + "</td>" +
-                                    "<td class='text-center align-middle'>" + result.tong_gia_tien + "k</td>" +"</tr>";
+                                    "<th class='text-center align-middle'>" + count +
+                                    "</th>" +
+                                    "<td class='text-center align-middle'>" + result
+                                    .ten_phim + "</td>" +
+                                    "<td class='text-center align-middle'>" + result
+                                    .rap_chieu + "</td>" +
+                                    "<td class='text-center align-middle thoi_gian'>" +
+                                    nbd + " - " + nkt + "</td>" +
+                                    "<td class='text-center align-middle'>" + result
+                                    .tong_gia_tien + "k</td>" + "</tr>";
                                 $('#result_body').append(newRow);
                             });
-                                toastr.success('Tìm kiếm thành công!', 'Thông báo');
+                            toastr.success('Tìm kiếm thành công!', 'Thông báo');
 
                         } else {
-                            $('#result_body').append("<tr><td colspan='5' class='text-center'>Không có phim</td></tr>");
+                            $('#result_body').append(
+                                "<tr><td colspan='5' class='text-center'>Không có phim</td></tr>"
+                                );
                         }
                     },
 
@@ -138,17 +146,15 @@
                 });
             });
         });
-
     </script>
-       <script>
-        toastr.options ={
+    <script>
+        toastr.options = {
             "progressBar": true,
             "closeButton": true,
         }
 
-        @if(Session::has('success'))
+        @if (Session::has('success'))
             toastr.success("{{ Session::get('success') }}", 'SUCCESS');
         @endif
-
     </script>
 @endsection

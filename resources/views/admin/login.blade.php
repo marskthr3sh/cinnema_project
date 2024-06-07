@@ -54,10 +54,14 @@
 
 </body>
 <script>
-    toastr.options ={
-        "progressBar": true,
-        "closeButton": true,
-    }
+
+    toastr.options = {
+            "progressBar": true,
+            "closeButton": true,
+            "timeOut": "3000", // Thời gian thông báo tự động đóng (5000 ms = 5 giây)
+            "positionClass": "toast-top-right", // Vị trí hiển thị thông báo
+            "hideDuration": "5000", // Thời gian hiệu ứng ẩn (1000 ms)
+        };
 
     @if(Session::has('success'))
         toastr.success("{{ Session::get('success') }}", 'SUCCESS');
