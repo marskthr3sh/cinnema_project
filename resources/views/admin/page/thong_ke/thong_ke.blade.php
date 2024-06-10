@@ -138,11 +138,6 @@
                                 );
                         }
                     },
-
-                    // error: function(xhr, status, error) {
-                    //     toastr.error("Có lỗi xảy ra khi gửi yêu cầu!", "Lỗi");
-                    // }
-
                 });
             });
         });

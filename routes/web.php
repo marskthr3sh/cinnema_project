@@ -31,14 +31,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('change-password', [CustomerController::class, 'changePassword'])->name('adminChangePassword');
 });
 
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', [CustomerController::class, 'viewProfile'])->name('profile');
     Route::post('/profile', [CustomerController::class, 'postProfile']);
 
     Route::get('/film-detail/{id}', [TrangChuController::class, 'detailPhim']);
 
-    Route::get('/phim-chieu/{id}', [TrangChuController::class, 'phimChieu']);
+    Route::get('/phim-chieu/{id}', [TrangChuController::class,  'phimChieu']);
 
     Route::get('/search', [TrangChuController::class, 'timKiem'])->name('search');
 });
@@ -46,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         /// admin
-Route::get('admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::get('admin/login' , [AdminController::class, 'showLoginForm'])->name('admin.login');
 Route::post('admin/login', [AdminController::class, 'login'])->name('admin.login.post');
 Route::get('admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
 

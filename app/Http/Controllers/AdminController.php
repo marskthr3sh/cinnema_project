@@ -214,6 +214,7 @@ class AdminController extends Controller
             'hinh_anh'          => 'required',
             'id_don_vi'         => 'required',
         ]);
+
         $update = Service::find($id);
         $update->update($validateDate);
 
